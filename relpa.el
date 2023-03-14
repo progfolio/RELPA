@@ -109,8 +109,8 @@ If it returns t, the menu item is kept. Otherwise the menu item is discarded." :
 
 ;;;###autoload
 (defun relpa (request)
-  "Menu function which provides RELPA recipes.
-Supports `index` and `update` REQUESTs."
+  "Menu function which provides RELPA recipes for r/relpa.
+Supports `index' and `update' REQUESTs."
   (or (and (not (eq request 'update)) relpa--cache)
       (prog2
           (message "Updating RELPA menu.")
