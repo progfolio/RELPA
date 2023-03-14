@@ -99,6 +99,8 @@ If it returns t, the menu item is kept. Otherwise the menu item is discarded." :
                            :date (ignore-errors
                                    (time-convert (alist-get 'utc_created data) nil))
                            :vote-ratio (alist-get 'upvote_ratio data)
+                           :upvotes (alist-get 'ups data)
+                           :downvotes (alist-get 'downs data)
                            :description (alist-get 'selftext data)
                            :recipe recipe)
                when (and recipe (cl-every (lambda (pred) (funcall pred item))
