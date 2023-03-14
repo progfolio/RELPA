@@ -42,12 +42,17 @@
 (defcustom relpa-results-limit 100
   "Number of results to fetch. Note: max of 100 per API." :type 'integer)
 (defcustom relpa-trusted-submitters nil "List of trusted recipe submitters." :type 'list)
+(defcustom relpa-vote-ratio-threshold 0.8 "Excludes packages with a vote ratio lower than the threshold." :type 'float)
 
 (defun relpa-trusted-submitter-p (item)
   "Return t if ITEM submitter a member of `relpa-trusted-submitters'."
   (member (plist-get item :submitter) relpa-trusted-submitters))
 
-(defcustom relpa-item-functions (list #'relpa-trusted-submitter-p)
+(defun relpa-elected-p (item)
+  "Return t if ITEM has a vote ratio above `relpa-vote-ratio-threshold'."
+  (>= (plist-get item :vote-ratio) relpa-vote-ratio-threshold))
+
+(defcustom relpa-item-functions (list #'relpa-trusted-submitter-p #'relpa-elected-p)
   "Abnormal hook which to filter menu items.
 Each function is called with a menu item candidate as its sole argument.
 If it returns t, the menu item is kept. Otherwise the menu item is discarded." :type 'list)
